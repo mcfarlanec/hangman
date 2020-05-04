@@ -23,7 +23,7 @@ def main():
     print("You have 6 lives, every incorrect letter will take 1 life away. Good luck!")
     print("\t")
 
-    while set(guessed_letters) != set(selected_letters):
+    while check_guessed(guessed_letters, selected_letters):
         if player_lives == 0:
             print("You have run out of lives!")
             print("The word was:", selected_word)
@@ -81,6 +81,20 @@ def read_dictionary():
     with open(words_json) as json_file:
         words = json.load(json_file)
     return words
+
+def check_guessed(guessed, selected):
+
+    matches = 0
+
+    for letter in selected:
+        for character in guessed:
+            if letter == character:
+                matches += 1
+
+    if matches == len(selected):
+        return False
+    else:
+        return True
 
 
 if __name__ == '__main__':
